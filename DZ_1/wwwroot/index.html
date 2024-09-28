@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title></title>
+</head>
+<body>
+    <h3>FORM for User</h3>
+    <div id="message"></div>
+    <!--<form method="post" action="echo">-->
+        <div class="mb-3">
+            <label for="Id" class="form-label">Id</label>
+            <input type="number" class="form-control" name="Id_user" id="Id_user" aria-describedby="emailHelp" >
+        </div>
+        <div class="mb-3">
+            <label for="Name" class="form-label">Name</label>
+            <input type="text" class="form-control" name="Name_user" id="Name_user">
+        </div>
+        <div class="mb-3">
+            <label for="Age" class="form-label">Age</label>
+            <input type="number" class="form-control" name="Age_user" id="Age_user">
+        </div>
+        <div class="mb-3">
+            <label for="Email" class="form-label">Email</label>
+            <input type="email" class="form-control" name="Email_user" id="Email_user">
+        </div>
+        <button id="sendBtn">Submit</button>
+
+        <script>
+            document.getElementById("sendBtn").addEventListener("click", send);
+            async function send() {
+                const response = await fetch("/result", {
+                    method: "POST",
+                    headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        id: document.getElementById("Id_user").value,
+                        name: document.getElementById("Name_user").value,
+                        age: document.getElementById("Age_user").value,
+                        email: document.getElementById("Email_user").value
+
+                    })
+                })
+                const message = await response.json();
+                document.getElementById("message").innerText = message.innerText;
+            }
+        </script>
+    <!--</form>-->
+</body>
+</html>
